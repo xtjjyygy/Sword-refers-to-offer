@@ -1,2 +1,2 @@
-# -offer
-剑指offer刷题记录
+# 剑指offer
+剑指offer_python刷题记录
