@@ -50,39 +50,44 @@ class Solution:
         numbers[low] = key
         return low
 #方法二：建立二叉树，最大堆
+'''
+另一种O(nlogk)的算法是基于堆排序的，特别适合处理海量数据。
+
+我们可以先创建一个大小为k的数据容器来存储最小的k个数字，接下来我们每次从输入的n个整数中的n个整数中读入一个数。如果容器中已有的数字少于k个，则直接把这次读入的整数放入容器之中；如果容器已经有k个数字了，也就是容器满了，此时我们不能再插入新的数字而只能替换已有的数字。找出这已有的k个数中的最大值，然后拿这次待插入的整数和最大值进行比较。如果待插入的值比当前已有的最大值小，则用这个数替换当前已有的最大值；如果待插入的值比当前已有的最大值还要大，那么这个数不可能是最小的k个整数之一，于是我们可以抛弃这个整数。
+
+因此当容器满了之后，我们要做3件事情：一是在k个整数中找到最大数；二是有可能在这个容器中删除最大数；三是有可能要插入一个新的数字。如果用一个二叉树来实现这个数据容器，那么我们在O(logk)时间内实现这三步操作。因此对于n个输入数字而言，总的时间效率就是O(nlogk)。
+'''
+# -*- coding:utf-8 -*-
 class Solution:
     def GetLeastNumbers_Solution(self, tinput, k):
-        n = len(tinput)
-        if k <= 0 or k > n:
-            return list()
-        # 建立大顶堆
-        for i in range(int(k / 2) - 1, -1, -1):
-            self.heapAjust(tinput, i, k - 1)
-        for i in range(k, n):
-            if tinput[i] < tinput[0]:
-                tinput[0], tinput[i] = tinput[i], tinput[0]
-                # 调整前k个数
-                self.heapAjust(tinput, 0, k - 1)
-        print(tinput[:k])
- 
-    def heapAjust(self, nums, start, end):
-        temp = nums[start]
-        # 记录较大的那个孩子下标
-        child = 2 * start + 1
-        while child <= end:
-            # 比较左右孩子，记录较大的那个
-            if child + 1 <= end and nums[child] < nums[child + 1]:
-                # 如果右孩子比较大，下标往右移
+        res = []
+        length = len(tinput)
+        change = True
+        if length <= 0 or k <= 0 or k > length:
+            return res
+        res = tinput[:k]
+        for i in range(k, length + 1):
+            if change == True:
+                for j in range(0, k // 2 + 1)[::-1]:
+                    self.HeadAdjust(res, j, k)
+                for j in range(1, k)[::-1]:
+                    res[0], res[j] = res[j], res[0]
+                    self.HeadAdjust(res, 0, j)
+                change = False
+            if i != length and res[k - 1] > tinput[i]:
+                res[k - 1] = tinput[i]
+                change = True
+        return res
+
+    def HeadAdjust(self, input_list, parent, length):
+        temp = input_list[parent]
+        child = 2 * parent + 1
+        while child < length:
+            if child + 1 < length and input_list[child] < input_list[child + 1]:
                 child += 1
-            # 如果根已经比左右孩子都大了，直接退出
-            if temp >= nums[child]:
+            if temp >= input_list[child]:
                 break
-            # 如果根小于某个孩子,将较大值提到根位置
-            nums[start] = nums[child]
-            # nums[start], nums[child] = nums[child], nums[start]
-            # 接着比较被降下去是否符合要求，此时的根下标为原来被换上去的那个孩子下标
-            start = child
-            # 孩子下标也要下降一层
-            child = child * 2 + 1
-        # 最后将一开始的根值放入合适的位置(如果前面是交换，这句就不要)
-        nums[start] = temp
+            input_list[parent] = input_list[child]
+            parent = child
+            child = 2 * parent + 1
+        input_list[parent] = temp
