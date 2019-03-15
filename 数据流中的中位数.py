@@ -14,7 +14,7 @@ class Solution:
         if self.flag:
             if self.minHeap == [] or num <= self.minHeap[0]: #插入最大堆
                 self.maxHeap.append(num) #插入
-                heapq.heapify(self.maxHeap) #调整
+                heapq._heapify_max(self.maxHeap) #调整，必须使用_heapify_max，而不是heapify
             elif num > self.minHeap[0]:  #大于最小堆最小元素，需要插入到最小堆，并且替换
                 self.maxHeap.append(heapq.heappop(self.minHeap))
                 heapq._heapify_max(self.maxHeap)
@@ -28,20 +28,9 @@ class Solution:
                 self.maxHeap.append(num)
                 heapq._heapify_max(self.maxHeap)
             self.flag = 1
-    def GetMedian(self):
+    def GetMedian(self,demo):
         # write code here
         if self.flag:
-            return float('{:.2f}'.format((self.maxHeap[0] + self.minHeap[0]) / 2))
+            return float('{:.2f}'.format((self.maxHeap[0] + self.minHeap[0]) / 2.0))
         else:
             return float('{:.2f}'.format(self.maxHeap[0]))
-
-
-sol = Solution()
-sol.Insert(5)
-sol.Insert(2)
-sol.Insert(6)
-sol.Insert(7)
-sol.Insert(8)
-print(sol.maxHeap)
-print(sol.minHeap)
-print(sol.GetMedian())
