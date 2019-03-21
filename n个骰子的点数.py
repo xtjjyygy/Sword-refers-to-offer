@@ -8,8 +8,6 @@ def PrintProbability(number):
         return
     maxSum = number * g_maxValue
     pProbabilities = [0]*(maxSum-number+1)
-    for i in range(number,maxSum+1):
-        pProbabilities[i-number] = 0
     Probability(number,pProbabilities)
     total = g_maxValue** number
     for i in range(number,maxSum+1):
