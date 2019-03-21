@@ -23,5 +23,5 @@ def Probabilitytwo(original,current,sum,pProbabilities):
         pProbabilities[sum-original]+=1
     else:
         for i in range(1,g_maxValue+1):
-            Probability(original,current-1,i+sum,pProbabilities)
+            Probabilitytwo(original,current-1,i+sum,pProbabilities)
 print(PrintProbability(1))
