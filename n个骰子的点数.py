@@ -16,12 +16,12 @@ def PrintProbability(number):
         ratio = float(pProbabilities[i-number]/total)
         print(i,ratio)
 def Probability(number,pProbabilities):
-    for i in range(g_maxValue+1):
+    for i in range(1,g_maxValue+1):
         Probabilitytwo(number,number,i,pProbabilities)
 def Probabilitytwo(original,current,sum,pProbabilities):
     if current == 1:
         pProbabilities[sum-original]+=1
     else:
-        for i in range(g_maxValue+1):
+        for i in range(1,g_maxValue+1):
             Probability(original,current-1,i+sum,pProbabilities)
 print(PrintProbability(1))
