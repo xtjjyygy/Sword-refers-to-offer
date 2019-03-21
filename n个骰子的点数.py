@@ -23,3 +23,26 @@ def Probabilitytwo(original,current,sum,pProbabilities):
         for i in range(1,g_maxValue+1):
             Probabilitytwo(original,current-1,i+sum,pProbabilities)
 print(PrintProbability(1))
+
+#解法二
+g_maxValue = 6
+def PrintProbability(number):
+    if number< 1:
+        return
+    pProbabilities = [[0]*(g_maxValue*number+1) for i in range(2)]#定义二维数组
+    flag = 0
+    for i in range(1,g_maxValue+1):
+        pProbabilities[flag][i] = 1
+    for k in range(2,number+1):
+        for i in range(k):
+            pProbabilities[1-flag][i] = 0
+        for i in range(k,g_maxValue*k+1):
+            pProbabilities[1-flag][i]=0
+            for j in range(1,min(i,g_maxValue)+1):
+                pProbabilities[1-flag][i] += pProbabilities[flag][i-j]
+        flag = 1-flag
+    total = g_maxValue**number
+    for i in range(number,g_maxValue*number+1):
+        ratio = float(pProbabilities[flag][i]/total)
+        print(i,ratio)
+print(PrintProbability(1))
