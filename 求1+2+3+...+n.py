@@ -15,3 +15,9 @@ class Solution:
     def sumN(self,n):
         fun = {False:self.sum0,True: self.sumN}
         return n + fun[not not n](n - 1)
+#方法二：终止递归采用逻辑与的短路特性
+# -*- coding:utf-8 -*-
+class Solution:
+    def Sum_Solution(self, n):
+        # write code here
+        return n and n + self.Sum_Solution(n-1)
