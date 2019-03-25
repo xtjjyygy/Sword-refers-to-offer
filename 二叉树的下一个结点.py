@@ -22,7 +22,7 @@ class Solution:
                 pNode = pNode.left
             pNext = pNode
         else:
-            if pNode.next and pNode.next.left == pNode:
+            if pNode.next and pNode.next.left == pNode:#.next代表指向root节点
                 pNext = pNode.next
             elif pNode.next and pNode.next.right == pNode:
                 pNode = pNode.next
