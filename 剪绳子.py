@@ -9,7 +9,7 @@ class Solution:
         if length == 1: 
             return 1
         if length == 2: 
-            return 2
+            return 1
         if length == 3: 
             return 2
         for j in range(4, length + 1):
