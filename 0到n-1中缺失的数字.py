@@ -35,3 +35,26 @@ class Solution:
 sol = Solution()
 data = [0,1,2,3,5,6]
 print(sol.FindMissValue(data))
+
+#方法三：
+#1-n-1中缺失的数字
+
+
+class Solutioin:
+    def FindMissing(self,data):
+        if not data:
+            return None
+        low = 0
+        high = len(data)-1
+        while low <= high:
+            mid = (low+high) // 2
+            if mid == data[mid]:
+                low = mid + 1
+            else:
+                if low == mid or data[mid-1] != mid-1:
+                    return mid
+                else:
+                    high = mid
+        return -1
+sol = Solutioin()
+print(sol.FindMissing(data=[0,1,2,3,4,5,6,8,9]))
