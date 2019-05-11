@@ -51,7 +51,7 @@ if __name__ == '__main__':
             root = stack.pop()
         return result
 
-#在序遍历（递归）
+#中序遍历（递归）
     def BinaryTreeTraversal(self,root):
         if not root:
             return None
@@ -60,7 +60,7 @@ if __name__ == '__main__':
         self.BinaryTreeTraversal(root.right)
         return self.result
 
-#在序遍历（非递归）   
+#中序遍历（非递归）   
     def BinaryTreeTraversal(self,root):
         if not root:
             return None
