@@ -121,3 +121,18 @@ if __name__ == '__main__':
                 if node.right:
                     stack.append(node.right)
         return result
+
+    #按层遍历（递归）
+        def BinaryTreeTraversal(self,root):
+        def helper(node, level):
+            if not node:
+                return
+            else:
+                sol[level-1].append(node.val)
+                if len(sol) == level:  # 遍历到新层时，只有最左边的结点使得等式成立
+                    sol.append([])
+                helper(node.left, level+1)
+                helper(node.right, level+1)
+        sol = [[]]
+        helper(root, 1)
+        return sol[:-1]
