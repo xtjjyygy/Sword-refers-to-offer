@@ -102,3 +102,22 @@ if __name__ == '__main__':
                 curr=stack.pop()
         return result[::-1]
     
+#按层遍历（非递归）
+    def BinaryTreeTraversal(self,root):
+        if not root:
+            return None
+        result = []
+        stack = [root]
+        while stack:
+            temp = []
+            for i in stack:
+                temp.append(i.val)
+            result.append(temp)
+
+            for i in range(len(stack)):
+                node = stack.pop(0)
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+        return result
