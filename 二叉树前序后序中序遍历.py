@@ -76,3 +76,29 @@ if __name__ == '__main__':
                 sol.append(curr.val)
                 curr = curr.right
         return sol
+
+#后序遍历（递归）    
+    def BinaryTreeTraversal(self,root):
+        if not root:
+            return None
+        self.BinaryTreeTraversal(root.left)
+        self.BinaryTreeTraversal(root.right)
+        self.result.append(root.val)
+        return self.result
+#后序遍历（非递归)
+    def BinaryTreeTraversal(self,root):
+        if not root:
+            return None
+        stack = []
+        result = []
+        curr = root
+
+        while curr or stack:
+            if curr:
+                result.append(curr.val)
+                stack.append(curr.left)
+                curr = curr.right
+            else:
+                curr=stack.pop()
+        return result[::-1]
+    
