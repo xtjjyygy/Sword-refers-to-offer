@@ -1,4 +1,4 @@
-#maxheap
+#minheap
 def heap_sort(elems):
     def siftdown(elems, e, begin, end):  # 向下筛选
         i, j = begin, begin * 2 + 1  # j为i的左子结点
@@ -27,3 +27,33 @@ def heap_sort(elems):
 
 if __name__ == "__main__":
     print(heap_sort([5, 6, 8, 1, 2, 4, 9]))
+
+
+#maxheap
+class Solution:
+    def sortHeap(self,nums):
+        l = len(nums)
+        for i in range(l//2-1,-1,-1):
+            #print("create",nums)
+            self.minHead(nums,nums[i],i,l)
+        for j in range(l-1,0,-1):
+            print("sorting",nums)
+            e = nums[j]
+            nums[j]=nums[0]
+            self.minHead(nums,e,0,j)
+
+        return nums
+    def minHead(self,nums,e,begin,end):
+        i,j = begin,2*begin+1
+        while j < end:
+            if j+1<end and nums[j] < nums[j+1]:
+                j+=1
+            if e>nums[j]:
+                break
+            nums[i]=nums[j]
+            i,j = j,2*j+1
+        nums[i]=e
+
+
+if __name__ == "__main__":
+    print(Solution().sortHeap(nums=[5,8,6,9,1,2,4]))
