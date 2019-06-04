@@ -137,3 +137,71 @@ if __name__ == '__main__':
     for i in bs_tree:
         print(i, end=" ")
     print("\n",bs_tree.search(49))
+    
+    
+    #I need
+    # 二叉树查找 Python实现
+class BSTNode:
+    def __init__(self, data):
+        self.data = data
+        self.left = None
+        self.right = None
+
+class BinarySortTree:
+    def __init__(self):
+        self._root = None
+
+    def insert(self, key):
+        bt = self._root
+        if not bt:
+            self._root = BSTNode(key)
+            return
+        while True:
+            entry = bt.data
+            if key < entry:
+                if bt.left is None:
+                    bt.left = BSTNode(key)
+                    return
+                bt = bt.left
+            elif key > entry:
+                if bt.right is None:
+                    bt.right = BSTNode(key)
+                    return
+                bt = bt.right
+            else:
+                bt.data = key
+                return
+
+    def TraversBT(self):
+        stack = []
+        res = []
+        node = self._root
+        while node or stack:
+            while node:
+                stack.append(node)
+                node = node.left
+            node = stack.pop()
+            res.append(node.data)
+            node = node.right
+        return res
+
+    def search(self, key):
+        bt = self._root
+        while bt:
+            entry = bt.data
+            if key < entry:
+                bt = bt.left
+            elif key > entry:
+                bt = bt.right
+            else:
+                return entry
+        return None
+
+
+if __name__ == '__main__':
+    lis = [3,2,6,8,4,1,8]
+    bs_tree = BinarySortTree()
+    for i in range(len(lis)):
+        bs_tree.insert(lis[i])
+    print(bs_tree.TraversBT())
+    print("\n",bs_tree.search(1))
