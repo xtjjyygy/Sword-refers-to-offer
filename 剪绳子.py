@@ -24,3 +24,21 @@ class Solution:
 
 sol = Solution()
 print(sol.maxProductAfterCutting(8))
+
+
+#贪心算法 
+def greedy_algorithm(n):
+    if n < 2:
+        return 0
+    if n == 2:
+        return 1
+    if n == 3:
+        return 2
+    multi_3 = 0
+    while n > 4:
+        multi_3 += 1
+        n -= 3
+    return 3 ** multi_3 * n
+
+
+print(greedy_algorithm(8))
