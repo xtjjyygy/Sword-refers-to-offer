@@ -1,5 +1,19 @@
 #方法一：
+class ListNode:
+    def __init__(self,val):
+        self.val = val
+        self.next = None
+
+
 class Solution(object):
+    def CreateList(self,nums):
+        dummy = ListNode(0)
+        head = dummy
+        for num in nums:
+            head.next = ListNode(num)
+            head = head.next
+        return dummy.next
+
     def sortList(self, head):
         """
         :type head: ListNode
@@ -24,17 +38,35 @@ class Solution(object):
                     pivotPost = pivotPost.next
                 node = temp
             return [pivotPrev, pivotPost]
-
-        def quicksort(start, end):
+        def quickSort(start,end):
             if start.next != end:
-                prev, post = partition(start, end)
-                quicksort(start, prev)
-                quicksort(post, end)
+                prev,post = partition(start,end)
+                quickSort(start,prev)
+                quickSort(post,end)
 
-        newHead = ListNode(0)
-        newHead.next = head
-        quicksort(newHead, None)
-        return newHead.next
+
+
+        dummy = ListNode(0)
+        dummy.next = head
+        quickSort(dummy,None)
+        return dummy.next
+    def outputList(self,head):
+        if head is None:
+            return []
+        res = []
+        while head:
+            res.append(head.val)
+            head = head.next
+        return res
+
+
+if __name__ == "__main__":
+    nums = [1,5,2,6,3,9,6]
+    sol = Solution()
+    head = sol.CreateList(nums=nums)
+    SortHead = sol.sortList(head)
+    print(sol.outputList(SortHead))
+
 
 #方法二
 class Node():
