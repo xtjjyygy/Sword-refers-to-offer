@@ -141,3 +141,69 @@ if __name__ == "__main__":
     L.create([4, 2, 5, 3, 7, 9, 0, 1])
     L.quicksortofloop(0, 7)
     L.print()
+
+#方法三
+#方法二
+# Definition for singly-linked list.
+class ListNode(object):
+    def __init__(self, x):
+        self.val = x
+        self.next = None
+
+class LinkList():
+    def create(self, item):
+        head = ListNode(item[0])
+        p = head
+        for i in item[1:]:
+            p.next = ListNode(i)
+            p = p.next
+        return head
+
+
+    def print(self,head):
+        p = head
+        res = []
+        while p != None:
+            res.append(p.val)
+            p = p.next
+        return res
+
+
+    def quicksortofloop(self,head):
+        def partition(start, end):
+            node = start.next.next
+            pivotPrev = start.next
+            pivotPrev.next = end
+            pivotPost = pivotPrev
+            while node != end:
+                temp = node.next
+                if node.val > pivotPrev.val:
+                    node.next = pivotPost.next
+                    pivotPost.next = node
+                elif node.val < pivotPrev.val:
+                    node.next = start.next
+                    start.next = node
+                else:
+                    node.next = pivotPost.next
+                    pivotPost.next = node
+                    pivotPost = pivotPost.next
+                node = temp
+            return [pivotPrev, pivotPost]
+
+        def quicksort(start, end):
+            if start.next != end:
+                prev, post = partition(start, end)
+                quicksort(start, prev)
+                quicksort(post, end)
+
+        newHead = ListNode(0)
+        newHead.next = head
+        quicksort(newHead, None)
+        return newHead.next
+
+
+if __name__ == "__main__":
+    L = LinkList()
+    root = L.create([4, 2, 5, 3, 7, 9, 0, 1])
+    newRoot = L.quicksortofloop(root)
+    print(L.print(newRoot))
